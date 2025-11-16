@@ -1,0 +1,12 @@
+[tasks.setup]
+  description = 'Setup the project for development'
+  run = 'bundle install'
+  sources = ['Gemfile']
+[tasks.test]
+  description = 'Run the tests'
+  run = 'bundle exec ruby test/helper.rb'
+  sources = ['**/*.rb']
+[tasks.lint]
+  description = 'Lint the files'
+  run = 'bundle exec rubocop'
+  sources = ['**/*.rb']
