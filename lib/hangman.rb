@@ -41,10 +41,10 @@ class Hangman
       end
     end
 
-    update_miss if matches.zero?
+    increment_miss if matches.zero?
   end
 
-  def update_miss
+  def increment_miss
     self.misses += 1
     self.missed_letters << user_guess.upcase
   end
