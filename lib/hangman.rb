@@ -1,9 +1,8 @@
-require_relative 'word'
-
 class Hangman
 
   BODY_PARTS = 6
-  PATTERN = '-' # needs to be something easy to watch from any terminal
+  PATTERN = '─' # needs to be something easy to watch from any terminal
+  PATH = 'word.txt'
 
   private
 
@@ -14,8 +13,18 @@ class Hangman
                 :missed_letters
 
   def initialize
+    self.secret_word = pick_a_word
+    self.guessed_word = build_guessed_word
     self.misses = 0
     self.missed_letters = ''
+  end
+
+  def pick_a_word
+    File.read(PATH).split(' ').sample
+  end
+
+  def build_guessed_word
+    PATTERN * secret_word.size
   end
 
   def guessed?
@@ -50,11 +59,6 @@ class Hangman
   end
 
   public
-
-  def choose_secret
-    self.secret_word = WORD[rand(WORD.size)]
-    self.guessed_word = PATTERN * secret_word.length
-  end
 
   def take(guess)
     self.user_guess = guess
