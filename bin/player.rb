@@ -37,8 +37,6 @@ class Player
   public
 
   def play
-    hangman.choose_secret
-
     puts "Welcome to The Hangman Game"
 
     until finish

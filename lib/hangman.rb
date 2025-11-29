@@ -1,8 +1,8 @@
 class Hangman
 
   BODY_PARTS = 6
-  PATTERN = '─' # needs to be something easy to watch from any terminal
-  PATH = 'words.txt'
+  PATTERN = '-'
+  PATH = 'lib/words.txt'
 
   private
 
