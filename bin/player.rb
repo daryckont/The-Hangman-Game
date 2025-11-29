@@ -5,20 +5,16 @@ class Player
 
   private
 
-  attr_accessor :hangman, :record
+  attr_accessor :hangman, :info
 
   def initialize
     self.hangman = Hangman.new
-    self.record = {}
-  end
-
-  def finish
-    record[:misses] == Hangman::BODY_PARTS or record[:guessed]
+    self.info = {}
   end
 
   def match_info
-    "Misses: #{record[:misses]}  Failed: #{record[:missed]}
-     \n#{record[:guessed_word]}
+    "Misses: #{info[:misses]}  Failed: #{info[:missed]}
+     \n#{info[:guessed_word]}
     "
   end
 
@@ -27,11 +23,11 @@ class Player
   end
 
   def final_message
-    if record[:guessed]
+    if info[:won]
       "Congrats, you guessed the secret word!👏👏👏"
     else
       "Sorry, you lost. Let me reach you the rope 😜"
-    end
+    end << "\n\nThe word was #{info[:secret]}."
   end
 
   public
@@ -39,9 +35,9 @@ class Player
   def play
     puts "Welcome to The Hangman Game"
 
-    until finish
+    until info[:ended]
       print "Insert your guess: "
-      self.record = hangman.take(gets.chomp.downcase)
+      self.info = hangman.take(gets.chomp.downcase)
       clear_screen
       puts match_info
     end
