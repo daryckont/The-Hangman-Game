@@ -27,16 +27,24 @@ class Hangman
     PATTERN * secret_word.size
   end
 
+  def ended?
+    out_of_chances? or guessed?
+  end
+
+  def out_of_chances?
+    misses.eql?(BODY_PARTS)
+  end
+
   def guessed?
-    secret_word == guessed_word
+    secret_word.eql?(guessed_word)
   end
 
   def inform_user
     {
-      guessed_word: guessed_word,
       misses: misses,
       missed: missed_letters,
-      guessed: guessed?
+      guessed_word: guessed_word,
+      ended: ended?
     }
   end
 
@@ -63,7 +71,14 @@ class Hangman
   def take(guess)
     self.user_guess = guess
     search_in_secret_word
-    inform_user
+
+    info = inform_user
+
+    if info[:ended]
+      info.merge!(won: guessed?, secret: secret_word)
+    end
+
+    info
   end
 
 end
