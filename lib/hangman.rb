@@ -72,13 +72,11 @@ class Hangman
     self.user_guess = guess
     search_in_secret_word
 
-    info = inform_user
-
-    if info[:ended]
-      info.merge!(won: guessed?, secret: secret_word)
+    if inform_user[:ended]
+      inform_user.merge(won: guessed?, secret: secret_word)
+    else
+      inform_user
     end
-
-    info
   end
 
 end
