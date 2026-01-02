@@ -19,7 +19,7 @@ class Player
   end
 
   def report
-    'Misses: %<misses>i Failed: %<missed>s\nGuessed Word: %<guessed_word>s' %
+    "Misses: %<misses>i Failed: %<missed>s\nGuessed Word: %<guessed_word>s" %
       match_info
   end
 
@@ -29,16 +29,16 @@ class Player
 
   def final_message
     if info[:won]
-      "Congrats, you guessed the secret word!👏👏👏"
+      "\nCongrats, you guessed the secret word! 😃😃😃"
     else
-      "Sorry, you lost. Let me reach you the rope 😜"
+      "\nSorry, you lost 😥"
     end << "\n\nThe word was #{info[:secret]}."
   end
 
   public
 
   def play
-    puts "Welcome to The Hangman Game"
+    puts 'Welcome to The Hangman Game'
 
     until info[:ended]
       print "\nInsert your guess: "
