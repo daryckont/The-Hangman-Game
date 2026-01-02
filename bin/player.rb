@@ -3,6 +3,8 @@ require_relative '../lib/hangman'
 
 class Player
 
+  FIND_MATCH_INFO= /misses|missed|guessed_word/
+
   private
 
   attr_accessor :hangman, :info
@@ -13,11 +15,11 @@ class Player
   end
 
   def match_info
-    info.select { |key, value| key.match(/misses|missed|guessed_word/) }
+    info.select { |key, value| key.match(FIND_MATCH_INFO) }
   end
 
   def report
-    "Misses: %<misses>i Failed: %<missed>s\nGuessed Word: %<guessed_word>s" %
+    'Misses: %<misses>i Failed: %<missed>s\nGuessed Word: %<guessed_word>s' %
       match_info
   end
 
