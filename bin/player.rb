@@ -13,9 +13,12 @@ class Player
   end
 
   def match_info
-    "Misses: #{info[:misses]}  Failed: #{info[:missed]}
-     \n#{info[:guessed_word]}
-    "
+    info.select { |key, value| key.match(/misses|missed|guessed_word/) }
+  end
+
+  def report
+    "Misses: %<misses>i Failed: %<missed>s\nGuessed Word: %<guessed_word>s" %
+      match_info
   end
 
   def clear_screen
@@ -36,10 +39,10 @@ class Player
     puts "Welcome to The Hangman Game"
 
     until info[:ended]
-      print "Insert your guess: "
+      print "\nInsert your guess: "
       self.info = hangman.take(gets.chomp.downcase)
       clear_screen
-      puts match_info
+      puts report
     end
 
     puts final_message
