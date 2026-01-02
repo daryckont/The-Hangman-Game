@@ -8,7 +8,6 @@ class Hangman
 
   attr_accessor :secret_word,
                 :guessed_word,
-                :user_guess,
                 :misses,
                 :missed_letters
 
@@ -48,29 +47,28 @@ class Hangman
     }
   end
 
-  def search_in_secret_word
+  def search_in_secret_word(guess)
     matches = 0
 
     secret_word.chars.each_with_index do |char, index|
-      if char == user_guess
-        self.guessed_word[index] = user_guess
+      if char == guess
+        self.guessed_word[index] = guess
         matches += 1
       end
     end
 
-    increment_miss if matches.zero?
+    increment_misses(guess) if matches.zero?
   end
 
-  def increment_miss
+  def increment_misses(guess)
     self.misses += 1
-    self.missed_letters << user_guess.upcase
+    self.missed_letters << guess.upcase
   end
 
   public
 
   def take(guess)
-    self.user_guess = guess
-    search_in_secret_word
+    search_in_secret_word(guess)
 
     if inform_user[:ended]
       inform_user.merge(won: guessed?, secret: secret_word)
